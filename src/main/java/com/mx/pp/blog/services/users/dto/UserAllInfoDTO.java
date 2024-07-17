@@ -1,83 +1,67 @@
-package com.mx.pp.blog.models.Users;
+package com.mx.pp.blog.services.users.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "user_info")
-public class UserInfoModel {
+public class UserAllInfoDTO {
 
 	/**
-	 * ID
+	 * name
 	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String name;
+
+	/**
+	 * password
+	 */
+	private String password;
+
+	/**
+	 * email
+	 */
+	private String email;
 
 	/**
 	 * age
 	 */
-	@Column(name = "age")
 	private int age;
 
 	/**
 	 * gender
 	 */
-	@Column(name = "gender")
 	private String gender;
 
 	/**
 	 * city
 	 */
-	@Column(name = "city")
 	private String city;
 
 	/**
 	 * country
 	 */
-	@Column(name = "country")
 	private String country;
 
 	/**
 	 * biography
 	 */
-	@Column(name = "bio")
 	private String biography;
 
 	/**
 	 * website
 	 */
-	@Column(name = "website")
 	private String website;
 
 	/**
 	 * phone
 	 */
-	@Column(name = "phone")
 	private String phone;
-
-	/**
-	 * user
-	 */
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user")
-	private UsersModel user;
 
 	/**
 	 * 
 	 */
-	public UserInfoModel() {
+	public UserAllInfoDTO() {
 	}
 
 	/**
-	 * @param id
+	 * @param name
+	 * @param password
+	 * @param email
 	 * @param age
 	 * @param gender
 	 * @param city
@@ -85,11 +69,12 @@ public class UserInfoModel {
 	 * @param biography
 	 * @param website
 	 * @param phone
-	 * @param user
 	 */
-	public UserInfoModel(Long id, int age, String gender, String city, String country, String biography, String website,
-			String phone, UsersModel user) {
-		this.id = id;
+	public UserAllInfoDTO(String name, String password, String email, int age, String gender, String city,
+			String country, String biography, String website, String phone) {
+		this.name = name;
+		this.password = password;
+		this.email = email;
 		this.age = age;
 		this.gender = gender;
 		this.city = city;
@@ -97,7 +82,6 @@ public class UserInfoModel {
 		this.biography = biography;
 		this.website = website;
 		this.phone = phone;
-		this.user = user;
 	}
 
 	/**
@@ -137,6 +121,15 @@ public class UserInfoModel {
 	}
 
 	/**
+	 * return the value of the propertie email
+	 *
+	 * @return email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
 	 * return the value of the propertie gender
 	 *
 	 * @return gender
@@ -146,12 +139,21 @@ public class UserInfoModel {
 	}
 
 	/**
-	 * return the value of the propertie id
+	 * return the value of the propertie name
 	 *
-	 * @return id
+	 * @return name
 	 */
-	public Long getId() {
-		return id;
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * return the value of the propertie password
+	 *
+	 * @return password
+	 */
+	public String getPassword() {
+		return password;
 	}
 
 	/**
@@ -161,15 +163,6 @@ public class UserInfoModel {
 	 */
 	public String getPhone() {
 		return phone;
-	}
-
-	/**
-	 * return the value of the propertie user
-	 *
-	 * @return user
-	 */
-	public UsersModel getUser() {
-		return user;
 	}
 
 	/**
@@ -218,6 +211,15 @@ public class UserInfoModel {
 	}
 
 	/**
+	 * sets the value of the property email
+	 *
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
 	 * sets the value of the property gender
 	 *
 	 * @param gender the gender to set
@@ -227,12 +229,21 @@ public class UserInfoModel {
 	}
 
 	/**
-	 * sets the value of the property id
+	 * sets the value of the property name
 	 *
-	 * @param id the id to set
+	 * @param name the name to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * sets the value of the property password
+	 *
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**
@@ -242,15 +253,6 @@ public class UserInfoModel {
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	/**
-	 * sets the value of the property user
-	 *
-	 * @param user the user to set
-	 */
-	public void setUser(UsersModel user) {
-		this.user = user;
 	}
 
 	/**

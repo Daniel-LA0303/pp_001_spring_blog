@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.mx.pp.blog.models.Users.UsersModel;
 import com.mx.pp.blog.repository.users.UserRepository;
+import com.mx.pp.blog.services.users.dto.UserAllInfoDTO;
+import com.mx.pp.blog.services.users.dto.UserTestDTO;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -17,7 +19,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UsersModel newUser(UsersModel user) {
-		
 		/*UsersModel newUser;
 		newUser.setName(user.getName());
 		newUser.setEmail(user.getEmail());
@@ -27,32 +28,21 @@ public class UserServiceImpl implements UserService{
 		return newUser;
 	}
 	
-	
-
 	@Override
-	public List<UsersModel> getUsers() {
-		
+	public List<UsersModel> getUsers() {	
 		List<UsersModel> users = userRepository.findAll();
-		
 		return users;
 	}
 
 	@Override
 	public Optional<UsersModel> getOneUser(Long id) {
-		
-		
-		//UsersModel user = userRepository.findById(id);
-		
 		return userRepository.findById(id);
 	}
 
 	@Override
-	public UsersModel updateUser(Long id) {
-		
+	public UsersModel updateUser(Long id) {	
 		//@SuppressWarnings("deprecation")
 		//UsersModel user = userRepository.getById(id);
-		
-		
 		return null;
 	}
 
@@ -61,6 +51,27 @@ public class UserServiceImpl implements UserService{
 		@SuppressWarnings("deprecation")
 		UsersModel user = userRepository.getById(id);
 		userRepository.delete(user);
+	}
+
+	/**
+	 * Complex queries
+	 */
+	
+	/**
+	 * Test Query
+	 */
+	@Override
+	public List<UserTestDTO> usersDetails() {
+		return userRepository.findUsersDetails();
+	}
+
+
+	/**
+	 * We get a user with all info
+	 */
+	@Override
+	public UserAllInfoDTO userAllInfo(Long id) {
+		return userRepository.findUserAllInfo(id);
 	}
 	
 }

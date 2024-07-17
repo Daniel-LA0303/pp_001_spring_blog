@@ -10,41 +10,45 @@ import com.mx.pp.blog.models.Users.UserInfoModel;
 import com.mx.pp.blog.repository.users.UserInfoRepository;
 
 @Service
-public class UserInfoServiceImpl implements UserInfoService{
-	
+public class UserInfoServiceImpl implements UserInfoService {
+
 	@Autowired
 	private UserInfoRepository userInfoRepository;
 
+	/**
+	 * delete info
+	 */
 	@Override
-	public UserInfoModel newUserInfo(UserInfoModel userInfo) {
-		
-		UserInfoModel newUserInfo = userInfoRepository.save(userInfo);
-		return newUserInfo;
+	public void deleteUserInfo(Long id) {
+		@SuppressWarnings("deprecation")
+		UserInfoModel userInfo = userInfoRepository.getById(id);
+		userInfoRepository.delete(userInfo);
 	}
 
-	@Override
-	public Optional<UserInfoModel> getOneUserInfo(Long id) {
-		
-		return userInfoRepository.findById(id);
-	}
-
+	/**
+	 * Get all info users
+	 */
 	@Override
 	public List<UserInfoModel> getAllUserInfo() {
 		List<UserInfoModel> userInfos = userInfoRepository.findAll();
 		return userInfos;
 	}
 
+	/**
+	 * Get one user info
+	 */
 	@Override
-	public void deleteUserInfo(Long id) {
-		
-		@SuppressWarnings("deprecation")
-		UserInfoModel userInfo = userInfoRepository.getById(id);
-		userInfoRepository.delete(userInfo);
-		
+	public Optional<UserInfoModel> getOneUserInfo(Long id) {
+		return userInfoRepository.findById(id);
 	}
-	
-	
-	
-	
+
+	/**
+	 * New info user
+	 */
+	@Override
+	public UserInfoModel newUserInfo(UserInfoModel userInfo) {
+		UserInfoModel newUserInfo = userInfoRepository.save(userInfo);
+		return newUserInfo;
+	}
 
 }
