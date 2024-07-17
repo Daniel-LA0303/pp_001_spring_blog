@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mx.pp.blog.models.Users.UserInfoModel;
 import com.mx.pp.blog.models.Users.UsersModel;
+import com.mx.pp.blog.services.users.UserInfoService;
 import com.mx.pp.blog.services.users.UserService;
 
 @RestController
@@ -25,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	@PostMapping
 	public ResponseEntity<UsersModel> saveUser(@RequestBody UsersModel user){
@@ -57,6 +62,21 @@ public class UserController {
 	public ResponseEntity<String> deleteUser(@PathVariable(name = "id") Long id){
 		userService.deleteUser(id);
 		return ResponseEntity.ok("User with ID " + id + " deleted successfully");
+	}
+	
+	@PostMapping("/info")
+	public ResponseEntity<UserInfoModel> saveUserInfo(@RequestBody UserInfoModel userInfo){
+		return new ResponseEntity<>(userInfoService.newUserInfo(userInfo), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/info")
+	public ResponseEntity<Map<String, List<UserInfoModel>>> getAllUsersInfo() {
+	    List<UserInfoModel> users = userInfoService.getAllUserInfo();
+	    
+	    Map<String, List<UserInfoModel>> response = new HashMap<>();
+	    response.put("usersInfo", users);
+	    
+	    return ResponseEntity.ok(response);
 	}
 	
 	
