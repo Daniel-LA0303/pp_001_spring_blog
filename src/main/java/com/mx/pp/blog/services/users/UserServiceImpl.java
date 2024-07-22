@@ -12,40 +12,14 @@ import com.mx.pp.blog.services.users.dto.UserAllInfoDTO;
 import com.mx.pp.blog.services.users.dto.UserTestDTO;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
 
-	@Override
-	public UsersModel newUser(UsersModel user) {
-		/*UsersModel newUser;
-		newUser.setName(user.getName());
-		newUser.setEmail(user.getEmail());
-		newUser.setPassword(user.getPassword());
-		newUser.setToken("");*/
-		UsersModel newUser = userRepository.save(user);
-		return newUser;
-	}
-	
-	@Override
-	public List<UsersModel> getUsers() {	
-		List<UsersModel> users = userRepository.findAll();
-		return users;
-	}
-
-	@Override
-	public Optional<UsersModel> getOneUser(Long id) {
-		return userRepository.findById(id);
-	}
-
-	@Override
-	public UsersModel updateUser(Long id) {	
-		//@SuppressWarnings("deprecation")
-		//UsersModel user = userRepository.getById(id);
-		return null;
-	}
-
+	/**
+	 * Delete one use
+	 */
 	@Override
 	public void deleteUser(Long id) {
 		@SuppressWarnings("deprecation")
@@ -54,17 +28,44 @@ public class UserServiceImpl implements UserService{
 	}
 
 	/**
-	 * Complex queries
-	 */
-	
-	/**
-	 * Test Query
+	 * Get one user
 	 */
 	@Override
-	public List<UserTestDTO> usersDetails() {
-		return userRepository.findUsersDetails();
+	public Optional<UsersModel> getOneUser(Long id) {
+		return userRepository.findById(id);
 	}
 
+	/**
+	 * Get all users
+	 */
+	@Override
+	public List<UsersModel> getUsers() {
+		List<UsersModel> users = userRepository.findAll();
+		return users;
+	}
+
+	/**
+	 * Add a new user
+	 */
+	@Override
+	public UsersModel newUser(UsersModel user) {
+		UsersModel newUser = userRepository.save(user);
+		return newUser;
+	}
+
+	/**
+	 * update user
+	 */
+	@Override
+	public UsersModel updateUser(Long id) {
+		// @SuppressWarnings("deprecation")
+		// UsersModel user = userRepository.getById(id);
+		return null;
+	}
+
+	/**
+	 * Complex queries
+	 */
 
 	/**
 	 * We get a user with all info
@@ -73,5 +74,13 @@ public class UserServiceImpl implements UserService{
 	public UserAllInfoDTO userAllInfo(Long id) {
 		return userRepository.findUserAllInfo(id);
 	}
-	
+
+	/**
+	 * Test Query
+	 */
+	@Override
+	public List<UserTestDTO> usersDetails() {
+		return userRepository.findUsersDetails();
+	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mx.pp.blog.models.Users.UserInfoModel;
 import com.mx.pp.blog.repository.users.UserInfoRepository;
+import com.mx.pp.blog.services.users.dto.UserInfoDTO;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -30,8 +31,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	@Override
 	public List<UserInfoModel> getAllUserInfo() {
-		List<UserInfoModel> userInfos = userInfoRepository.findAll();
-		return userInfos;
+		List<UserInfoModel> userInfo = userInfoRepository.findAll();
+		return userInfo;
 	}
 
 	/**
@@ -49,6 +50,22 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfoModel newUserInfo(UserInfoModel userInfo) {
 		UserInfoModel newUserInfo = userInfoRepository.save(userInfo);
 		return newUserInfo;
+	}
+
+	@Override
+	public UserInfoModel updateUserInfoModel(Long id, UserInfoDTO userInfoDTO) {
+		@SuppressWarnings("deprecation")
+		UserInfoModel userInfo = userInfoRepository.getById(id);
+
+		userInfo.setAge(userInfoDTO.getAge());
+		userInfo.setBiography(userInfoDTO.getBiography());
+		userInfo.setCity(userInfoDTO.getCity());
+		userInfo.setCountry(userInfoDTO.getCountry());
+		userInfo.setGender(userInfoDTO.getGender());
+		userInfo.setPhone(userInfoDTO.getPhone());
+		userInfo.setWebsite(userInfoDTO.getWebsite());
+
+		return userInfoRepository.save(userInfo);
 	}
 
 }

@@ -1,87 +1,49 @@
-package com.mx.pp.blog.models.Users;
+package com.mx.pp.blog.services.users.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "user_info")
-public class UserInfoModel {
-
-	/**
-	 * ID
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class UserInfoDTO {
 
 	/**
 	 * age
 	 */
-	@Column(name = "age")
 	private int age;
 
 	/**
 	 * gender
 	 */
-	@Column(name = "gender")
 	private String gender;
 
 	/**
 	 * city
 	 */
-	@Column(name = "city")
 	private String city;
 
 	/**
 	 * country
 	 */
-	@Column(name = "country")
 	private String country;
 
 	/**
 	 * biography
 	 */
-	@Column(name = "bio")
 	private String biography;
 
 	/**
 	 * website
 	 */
-	@Column(name = "website")
 	private String website;
 
 	/**
 	 * phone
 	 */
-	@Column(name = "phone")
 	private String phone;
-
-	/**
-	 * user
-	 */
-	@JsonManagedReference("userInfo-user")
-	// @JsonBackReference
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user")
-	private UsersModel user;
 
 	/**
 	 * 
 	 */
-	public UserInfoModel() {
+	public UserInfoDTO() {
 	}
 
 	/**
-	 * @param id
 	 * @param age
 	 * @param gender
 	 * @param city
@@ -89,11 +51,9 @@ public class UserInfoModel {
 	 * @param biography
 	 * @param website
 	 * @param phone
-	 * @param user
 	 */
-	public UserInfoModel(Long id, int age, String gender, String city, String country, String biography, String website,
-			String phone, UsersModel user) {
-		this.id = id;
+	public UserInfoDTO(int age, String gender, String city, String country, String biography, String website,
+			String phone) {
 		this.age = age;
 		this.gender = gender;
 		this.city = city;
@@ -101,7 +61,6 @@ public class UserInfoModel {
 		this.biography = biography;
 		this.website = website;
 		this.phone = phone;
-		this.user = user;
 	}
 
 	/**
@@ -150,30 +109,12 @@ public class UserInfoModel {
 	}
 
 	/**
-	 * return the value of the propertie id
-	 *
-	 * @return id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
 	 * return the value of the propertie phone
 	 *
 	 * @return phone
 	 */
 	public String getPhone() {
 		return phone;
-	}
-
-	/**
-	 * return the value of the propertie user
-	 *
-	 * @return user
-	 */
-	public UsersModel getUser() {
-		return user;
 	}
 
 	/**
@@ -231,30 +172,12 @@ public class UserInfoModel {
 	}
 
 	/**
-	 * sets the value of the property id
-	 *
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
 	 * sets the value of the property phone
 	 *
 	 * @param phone the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	/**
-	 * sets the value of the property user
-	 *
-	 * @param user the user to set
-	 */
-	public void setUser(UsersModel user) {
-		this.user = user;
 	}
 
 	/**

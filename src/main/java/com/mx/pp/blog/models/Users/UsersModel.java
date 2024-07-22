@@ -1,9 +1,10 @@
 package com.mx.pp.blog.models.Users;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "name"),
 		@UniqueConstraint(columnNames = "email") })
 public class UsersModel {
-	
+
 	/**
 	 * ID
 	 */
@@ -56,8 +57,15 @@ public class UsersModel {
 	/**
 	 * userInfo
 	 */
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// @JsonManagedReference
+	@JsonBackReference("userInfo-user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private UserInfoModel userInfo;
+
+	// @JsonManagedReference
+	@JsonBackReference("userImage-user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private UserImageModel userImage;
 
 	/**
 	 * 
@@ -83,6 +91,28 @@ public class UsersModel {
 		this.token = token;
 		this.confirm = confirm;
 		this.userInfo = userInfo;
+	}
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param password
+	 * @param email
+	 * @param token
+	 * @param confirm
+	 * @param userInfo
+	 * @param userImage
+	 */
+	public UsersModel(Long id, String name, String password, String email, String token, Boolean confirm,
+			UserInfoModel userInfo, UserImageModel userImage) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		this.token = token;
+		this.confirm = confirm;
+		this.userInfo = userInfo;
+		this.userImage = userImage;
 	}
 
 	/**
@@ -137,6 +167,15 @@ public class UsersModel {
 	 */
 	public String getToken() {
 		return token;
+	}
+
+	/**
+	 * return the value of the propertie userImage
+	 *
+	 * @return userImage
+	 */
+	public UserImageModel getUserImage() {
+		return userImage;
 	}
 
 	/**
@@ -200,6 +239,15 @@ public class UsersModel {
 	 */
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	/**
+	 * sets the value of the property userImage
+	 *
+	 * @param userImage the userImage to set
+	 */
+	public void setUserImage(UserImageModel userImage) {
+		this.userImage = userImage;
 	}
 
 	/**
