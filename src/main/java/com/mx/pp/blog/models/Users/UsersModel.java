@@ -1,6 +1,10 @@
 package com.mx.pp.blog.models.Users;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mx.pp.blog.models.Posts.PostModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -8,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -67,6 +72,11 @@ public class UsersModel {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private UserImageModel userImage;
 
+	@JsonBackReference("post-user")
+	// @JsonManagedReference("post-user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<PostModel> posts = new HashSet<>();
+
 	/**
 	 * 
 	 */
@@ -116,6 +126,30 @@ public class UsersModel {
 	}
 
 	/**
+	 * @param id
+	 * @param name
+	 * @param password
+	 * @param email
+	 * @param token
+	 * @param confirm
+	 * @param userInfo
+	 * @param userImage
+	 * @param posts
+	 */
+	public UsersModel(Long id, String name, String password, String email, String token, Boolean confirm,
+			UserInfoModel userInfo, UserImageModel userImage, Set<PostModel> posts) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		this.token = token;
+		this.confirm = confirm;
+		this.userInfo = userInfo;
+		this.userImage = userImage;
+		this.posts = posts;
+	}
+
+	/**
 	 * return the value of the propertie confirm
 	 *
 	 * @return confirm
@@ -158,6 +192,15 @@ public class UsersModel {
 	 */
 	public String getPassword() {
 		return password;
+	}
+
+	/**
+	 * return the value of the propertie posts
+	 *
+	 * @return posts
+	 */
+	public Set<PostModel> getPosts() {
+		return posts;
 	}
 
 	/**
@@ -230,6 +273,15 @@ public class UsersModel {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * sets the value of the property posts
+	 *
+	 * @param posts the posts to set
+	 */
+	public void setPosts(Set<PostModel> posts) {
+		this.posts = posts;
 	}
 
 	/**
