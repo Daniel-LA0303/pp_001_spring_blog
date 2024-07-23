@@ -2,6 +2,7 @@ package com.mx.pp.blog.models.Posts;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mx.pp.blog.models.Users.UsersModel;
 
@@ -64,8 +65,8 @@ public class PostModel {
 	/**
 	 * Post image
 	 */
-	// @JsonBackReference("post-image")
-	@JsonManagedReference("post-image")
+	@JsonBackReference("post-image")
+	// @JsonManagedReference("post-image")
 	@OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private PostImageModel postImage;
 

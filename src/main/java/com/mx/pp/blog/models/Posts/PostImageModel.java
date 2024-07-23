@@ -1,6 +1,6 @@
 package com.mx.pp.blog.models.Posts;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,8 +37,8 @@ public class PostImageModel {
 	/**
 	 * Post
 	 */
-	// @JsonManagedReference("post-image")
-	@JsonBackReference("post-image")
+	@JsonManagedReference("post-image")
+	// @JsonBackReference("post-image")
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_post")
 	private PostModel post;
