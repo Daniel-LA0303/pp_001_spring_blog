@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mx.pp.blog.models.Posts.PostModel;
+import com.mx.pp.blog.models.comment.CommentModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -76,6 +77,10 @@ public class UsersModel {
 	// @JsonManagedReference("post-user")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<PostModel> posts = new HashSet<>();
+
+	@JsonBackReference("user-comments")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<CommentModel> comments = new HashSet<>();
 
 	/**
 	 * 

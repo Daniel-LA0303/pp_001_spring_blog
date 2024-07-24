@@ -1,10 +1,13 @@
 package com.mx.pp.blog.models.Posts;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mx.pp.blog.models.Users.UsersModel;
+import com.mx.pp.blog.models.comment.CommentModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -69,6 +73,10 @@ public class PostModel {
 	// @JsonManagedReference("post-image")
 	@OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private PostImageModel postImage;
+
+	@JsonBackReference("post-comments")
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<CommentModel> comments = new HashSet<>();
 
 	/**
 	 * 
